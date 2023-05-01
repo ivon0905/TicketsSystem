@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Windows;
 using TicketsSystem.Commands;
+using TicketsSystem.Models;
+using TicketsSystem.Services;
 
 namespace TicketsSystem.ViewModels
 {
@@ -71,27 +69,20 @@ namespace TicketsSystem.ViewModels
         #region Methods
         private void SignIn(object o)
         {
-            //User user = UserData.IsUserPassCorrect(username, password);
-            ////Проверяваме дали потребителят съществува и дали е ученик, за да заредим view-то с неговите данни
-            //if (user != null && user.Role == 4)
-            //{
-            //    MainViewModel vm = new MainViewModel();
-            //    vm.SelectedViewModel = new EditStudentViewModel(user);
-            //    MainWindow mainWindow = (MainWindow)Application.Current.MainWindow;
-            //    mainWindow.DataContext = vm;
-            //}
-            ////Проверяваме дали потребителят е преподавател и зареждаме данните за всички студенти
-            //else if (user != null && user.Role == 3)
-            //{
-            //    MainViewModel vm = new MainViewModel();
-            //    vm.SelectedViewModel = new AllStudentsViewModel();
-            //    MainWindow mainWindow = (MainWindow)Application.Current.MainWindow;
-            //    mainWindow.DataContext = vm;
-            //}
-            //else
-            //{
-            //    UserNotFound = true;
-            //}
+            DatabaseService db = new DatabaseService();
+            User user = db.FindUser(Username, Password);
+
+            if (user != null)
+            {
+                MainViewModel vm = new MainViewModel();
+                vm.SelectedViewModel = new ReservationViewModel(user);
+                MainWindow mainWindow = (MainWindow)Application.Current.MainWindow;
+                mainWindow.DataContext = vm;
+            }
+            else
+            {
+                UserNotFound = true;
+            }
         }
         #endregion
     }

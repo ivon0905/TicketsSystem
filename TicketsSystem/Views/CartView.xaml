@@ -1,0 +1,39 @@
+﻿<Window x:Class="TicketsSystem.Views.CartView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TicketsSystem.Views"
+        mc:Ignorable="d"
+        Title="Количка" Height="400" Width="450" ResizeMode="NoResize">
+    <Grid>
+        <ListView    
+                Margin="15,15,15,50"  ScrollViewer.CanContentScroll="False"
+                ItemsSource="{Binding Tickets, NotifyOnSourceUpdated=True}">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn DisplayMemberBinding="{Binding FromDestination}" Width="80">
+                        <GridViewColumnHeader Content="От"/>
+                    </GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding ToDestination}" Width="80">
+                        <GridViewColumnHeader Content="До"/>
+                    </GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding StartTime}" Width="100">
+                        <GridViewColumnHeader Content="Заминаване"/>
+                    </GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding EndTime}" Width="100">
+                        <GridViewColumnHeader Content="Пристигане"/>
+                    </GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Price, StringFormat=N2}" Width="50">
+                        <GridViewColumnHeader Content="Цена (лв.)"/>
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+        <TextBlock
+            Margin="15"
+            HorizontalAlignment="Right" VerticalAlignment="Bottom"
+            Text="{Binding StrTotalAmount}"/>
+    </Grid>
+</Window>

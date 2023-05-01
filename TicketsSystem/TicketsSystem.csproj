@@ -8,6 +8,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Images\TUSlogo.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Images\TUSlogo.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="LiteDB" Version="5.0.16" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>

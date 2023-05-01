@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace TicketsSystem.V_iews
+namespace TicketsSystem.Views
 {
     /// <summary>
-    /// Interaction logic for LoginView.xaml
+    /// Interaction logic for ReservationView.xaml
     /// </summary>
-    public partial class LoginView : UserControl
+    public partial class ReservationView : UserControl
     {
-        public LoginView()
+        public ReservationView()
         {
             InitializeComponent();
         }

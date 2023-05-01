@@ -1,10 +1,6 @@
 ﻿using LiteDB;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Controls;
 using TicketsSystem.Models;
 
 namespace TicketsSystem.Services
@@ -19,11 +15,15 @@ namespace TicketsSystem.Services
 
             using (var db = new LiteDatabase(path))
             {
-                var table = db.GetCollection<TicketsDetails>("Tickets");
-                var rows = table.FindAll();
+                var collection = db.GetCollection<TicketsDetails>("Tickets");
+                var rows = collection.Query()
+                                     .Where(i => i.FromDestination == fromDestination && 
+                                                 i.ToDestination == toDestination &&
+                                                 i.StartTime.Date == date)
+                                     .ToList();
 
                 if (rows != null)
-                    tickets = rows.ToList();
+                    tickets = rows;
             }
             return tickets;
         }
@@ -35,6 +35,32 @@ namespace TicketsSystem.Services
                 var table = db.GetCollection<TicketsDetails>("Tickets");
                 table.Insert(order);
             }
+        }
+
+        private const string pathUsers = "C:\\Users\\ivich\\Documents\\TU\\ВВПС\\Users.db";
+        public void AddUser(User user)
+        {
+            using (var db = new LiteDatabase(pathUsers))
+            {
+                var table = db.GetCollection<User>("Users");
+                table.Insert(user);
+            }
+        }
+
+        public User FindUser(string username, string password)
+        {
+            User user = null;
+
+            using (var db = new LiteDatabase(pathUsers))
+            {
+                var table = db.GetCollection<User>("Users");
+                var userFound = table.FindOne(u => u.Username == username && u.Password == password);
+
+                if (userFound != null)
+                    user = userFound;
+            }
+                
+            return user;
         }
     }
 }
